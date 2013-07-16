@@ -1,3 +1,6 @@
+include:
+  - build-essential
+
 old_ruby:
   pkg.purged:
     - names:
