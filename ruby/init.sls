@@ -1,7 +1,11 @@
 include:
-  - build-essential
+{% if pillar.get('ruby', {}).get('install_from_source') %}  
+  - ruby.source
+{% else %}
+  - ruby.package
+{% endif %}
 
-old_ruby:
+old_ruby_purged:
   pkg.purged:
     - names:
       - ruby1.8 
@@ -11,13 +15,3 @@ old_ruby:
       - libreadline5 
       - libruby1.8 
       - ruby1.8-dev
-
-ruby:
-  pkg.installed:
-    - names:
-      - ruby1.9.3
-      - ruby1.9.1-dev
-    - require:
-      - pkg: old_ruby
-      - pkg: build-essential
-
