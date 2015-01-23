@@ -5,6 +5,7 @@ ruby:
 # From PPA own Version
 ruby:
   package: ruby2.2 # <-- package name in the ppa above.
+  package-dev: ruby2.2-dev
 
 # From Source - version from this git (v2.2.0)
 ruby:
