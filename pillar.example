@@ -5,7 +5,9 @@ ruby:
 # From PPA own Version
 ruby:
   package: ruby2.2 # <-- package name in the ppa above.
-  package-dev: ruby2.2-dev
+  package_dev: ruby2.2-dev
+  # package_bundler: bundler
+  # package_passenger: ruby-passenger
 
 # From Source - version from this git (v2.2.0)
 ruby:

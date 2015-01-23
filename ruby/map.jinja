@@ -2,13 +2,15 @@
     'Debian': {
         'package': 'ruby2.2',
         'package_dev': 'ruby2.2-dev',
-        'bundler': 'bundler',
+        'package_bundler': 'bundler',
+        'package_passenger': 'ruby-pasenger',
         'install_from_source': False,
     },
     'RedHat': {
         'package': 'ruby193-ruby',
         'package_dev': 'ruby193-ruby-devel',
-        'bundler': 'ruby193-rubygem-bundler',
+        'package_bundler': 'ruby193-rubygem-bundler',
+        'package_passenger': 'TODO: unknown',
         'install_from_source': Fale,
     },
 }, merge=salt['pillar.get']('ruby')) %}

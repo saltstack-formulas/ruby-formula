@@ -14,17 +14,18 @@ ruby-ppa:
       - pkg: ruby-ppa
 
 ruby:
+  pkg.installed:
+    - names:
+      - {{ ruby.package }}
+      - {{ ruby.package_bundler }}
+      - ruby-switch
+    - require:
+      - pkgrepo: ruby-ppa
+
   cmd.run:
     - name: ruby-switch --set {{ ruby.package }}
     - require:
       - pkg: ruby
-
-  pkg.installed:
-    - names:
-      - {{ ruby.package }}
-      - ruby-switch
-    - require:
-      - pkgrepo: ruby-ppa
 
 {% elif grains['os_family'] == 'RedHat' %}
 # TODO: Test me!
@@ -32,6 +33,6 @@ ruby:
   pkg.installed:
     - names:
       - {{ ruby.package }}
-      - {{ ruby.bundler }}
+      - {{ ruby.package_bundler }}
 
 {% endif %}
