@@ -2,16 +2,14 @@
 
 {% if grains['os_family'] == 'Debian' %}
 
-# TODO: Replace me with ?include apt.ppa?
-ruby-ppa:
-  pkg.installed:
-    - name: python-software-properties
-
+ruby_repo:
   pkgrepo.managed:
-    - ppa: brightbox/ruby-ng
-    - refresh: True
-    - require:
-      - pkg: ruby-ppa
+    - humanname: ruby-ppa-{{ grains['oscodename'] }}
+    - name: deb http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu {{ grains['oscodename'] }} main
+    - file: /etc/apt/sources.list.d/ruby-{{ grains['oscodename'] }}.list
+    - dist: {{ grains['oscodename'] }}
+    - keyid: C3173AA6
+    - keyserver: keyserver.ubuntu.com
 
 ruby:
   pkg.installed:
@@ -20,7 +18,7 @@ ruby:
       - {{ ruby.package_bundler }}
       - ruby-switch
     - require:
-      - pkgrepo: ruby-ppa
+      - pkgrepo: ruby_repo
 
   cmd.run:
     - name: ruby-switch --set {{ ruby.package }}

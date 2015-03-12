@@ -1,13 +1,13 @@
 # From PPA latest - version from this git (v2.2.0)
 # https://launchpad.net/~brightbox/+archive/ubuntu/ruby-ng
-ruby:
+
+# No configuration needed.
 
 # From PPA own Version
 ruby:
   package: ruby2.2 # <-- package name in the ppa above.
   package_dev: ruby2.2-dev
   # package_bundler: bundler
-  # package_passenger: ruby-passenger
 
 # From Source - version from this git (v2.2.0)
 ruby:
