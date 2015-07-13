@@ -1,28 +1,60 @@
 {% set ruby = pillar.get('ruby', {}) -%}
-{% set version = ruby.get('version', '2.0.0-p247') -%}
-{% set checksum = ruby.get('checksum', 'md5=c351450a0bed670e0f5ca07da3458a5b') -%}
+{% set version = ruby.get('version', '2.2.0') -%}
+{% set source_url = ruby.get('source_url', 'http://cache.ruby-lang.org/pub/ruby/2.2/ruby-2.2.0.tar.gz') -%}
+{% set checksum = ruby.get('source_checksum', 'md5=cd03b28fd0b555970f5c4fd481700852') -%}
 {% set source = ruby.get('source_root', '/usr/local/src') -%}
 
 {% set ruby_package = source + '/ruby-' + version + '.tar.gz' -%}
 
-get_ruby:
+
+# Other os_families than Debian are untested.
+# List is from: https://github.com/sstephenson/ruby-build/wiki
+# TODO: Test RedHat variant
+{% if grains['os_family'] == 'Debian' -%}
+ruby_source_installer_packages:
   pkg.installed:
-      - names:
-        - libcurl4-openssl-dev 
-        - libexpat1-dev 
-        - gettext 
-        - libz-dev 
-        - libssl-dev
-        - build-essential
+    - names:
+      - autoconf # Not sure these two are needed.
+      - bison
+      - build-essential
+      - zlib1g-dev
+      - libyaml-dev
+      - libssl-dev
+      - libreadline-dev
+      - libcurl4-openssl-dev
+      - libxml2-dev
+      - libxslt1-dev
+      - libreadline6-dev
+      - libncurses5-dev
+      - libffi-dev
+      - libgdbm3
+      - libgdbm-dev
+{% elif grains['os_family'] == 'RedHat' -%}
+ruby_source_installer_packages:
+  pkg.installed:
+    - names:
+      - gcc
+      - openssl-devel
+      - libyaml-devel
+      - libffi-devel
+      - readline-devel
+      - zlib-devel
+      - gdbm-devel
+      - ncurses-devel
+{% endif -%}
+
+get_ruby:
   file.managed:
     - name: {{ ruby_package }}
-    - source: ftp://ftp.ruby-lang.org/pub/ruby/ruby-{{ version }}.tar.gz
+    - source: {{ source_url }}
     - source_hash: {{ checksum }}
-  cmd.wait:
+  module.run:
+    - name: archive.tar
     - cwd: {{ source }}
-    - name: tar -zxf {{ ruby_package }}
+    - tarfile: {{ ruby_package }}
+    - options: zxf
     - require:
-      - pkg: get_ruby
+      - pkg: ruby_source_installer_packages
     - watch:
       - file: get_ruby
 
@@ -31,7 +63,6 @@ ruby:
     - cwd: {{ source + '/ruby-' + version }}
     - name: ./configure && make && make install
     - watch:
-      - cmd: get_ruby
+      - module: get_ruby
     - require:
-      - cmd: get_ruby
       - pkg: old_ruby_purged

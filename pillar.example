@@ -1,2 +1,22 @@
+# From PPA latest - version from this git (v2.2.0)
+# https://launchpad.net/~brightbox/+archive/ubuntu/ruby-ng
+
+# No configuration needed.
+
+# From PPA own Version
+ruby:
+  package: ruby2.2 # <-- package name in the ppa above.
+  package_dev: ruby2.2-dev
+  # package_bundler: bundler
+
+# From Source - version from this git (v2.2.0)
 ruby:
   install_from_source: True
+
+# From Source own Version
+ruby:
+  install_from_source: True
+  version: v2.1.0 # <-- Directory in the tar below - "{{ source }}/ruby-{{ version }}"
+  source_url: http://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.5.tar.gz
+  source_checksum: md5=df4c1b23f624a50513c7a78cb51a13dc
+  source_root: /usr/local/src # optional
