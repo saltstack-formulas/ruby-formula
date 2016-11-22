@@ -6,9 +6,9 @@
         'install_from_source': False,
     },
     'RedHat': {
-        'package': 'ruby193-ruby',
-        'package_dev': 'ruby193-ruby-devel',
-        'package_bundler': 'ruby193-rubygem-bundler',
+        'package': 'ruby',
+        'package_dev': 'ruby-devel',
+        'package_bundler': 'bundler',
         'install_from_source': False,
     },
 }, merge=salt['pillar.get']('ruby')) %}
