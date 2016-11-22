@@ -1,6 +1,0 @@
----
-hostname: 127.0.0.1
-port: '2200'
-username: vagrant
-ssh_key: "/home/cramaker/workspace/ruby-formula/.kitchen/kitchen-vagrant/kitchen-ruby-formula-default-bento-centos-72/.vagrant/machines/default/virtualbox/private_key"
-last_action: verify
