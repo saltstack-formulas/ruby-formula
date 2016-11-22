@@ -1,0 +1,25 @@
+# vim: ft=yaml
+---
+driver:
+  name: vagrant
+  customize: 
+    memory: 1024
+
+provisioner:
+  name: salt_solo
+  formula: ruby
+  state_top:
+    base:
+      '*':
+        - ruby
+
+suites:
+  - name: default
+
+
+platforms:
+  - name: bento/centos-7.2
+
+suites:
+  - name: default
+

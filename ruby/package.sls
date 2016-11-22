@@ -26,11 +26,12 @@ ruby:
       - pkg: ruby
 
 {% elif grains['os_family'] == 'RedHat' %}
-# TODO: Test me!
 ruby:
   pkg.installed:
     - names:
       - {{ ruby.package }}
-      - {{ ruby.package_bundler }}
+
+  cmd.run: 
+    - name: gem install {{ ruby.package_bundler }}
 
 {% endif %}

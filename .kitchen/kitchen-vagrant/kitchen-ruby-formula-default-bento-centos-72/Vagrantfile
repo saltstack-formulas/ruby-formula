@@ -1,0 +1,9 @@
+Vagrant.configure("2") do |c|
+  c.berkshelf.enabled = false if Vagrant.has_plugin?("vagrant-berkshelf")
+  c.vm.box = "bento/centos-7.2"
+  c.vm.hostname = "default-bento-centos-72"
+  c.vm.synced_folder ".", "/vagrant", disabled: true
+  c.vm.provider :virtualbox do |p|
+    p.customize ["modifyvm", :id, "--memory", "1024"]
+  end
+end
